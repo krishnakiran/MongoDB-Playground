@@ -1,34 +1,24 @@
-package com.andiandy;
+package com.andiandy.m101j.week1;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
-
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.Spark;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 
-public class HelloWorldMongoDBSparkFreemarkerStyle {
-	public static void main(String[] args) throws UnknownHostException {
+public class HelloWorldSparkFreemarkerStyle {
+
+	public static void main(String[] args) {
 		final Configuration configuration = new Configuration();
 		configuration.setClassForTemplateLoading(HelloWorldSparkFreemarkerStyle.class, "/");
 		
-		MongoClient client = new MongoClient("localhost", 27017);
-		
-		DB database = client.getDB("test");
-		final DBCollection collection = database.getCollection("names");
-
 		
 		Spark.get(new Route("/") {	
 			@Override
@@ -37,9 +27,10 @@ public class HelloWorldMongoDBSparkFreemarkerStyle {
 				try {
 					Template helloTemplate = configuration.getTemplate("hello.ftl");
 					
-					DBObject document = collection.findOne();
+					Map<String, Object> helloMap = new HashMap<String, Object>();
+					helloMap.put("name", "Freemarker");
 					
-					helloTemplate.process(document, writer);
+					helloTemplate.process(helloMap, writer);
 					
 					System.out.println(writer);
 				} catch (IOException e) {

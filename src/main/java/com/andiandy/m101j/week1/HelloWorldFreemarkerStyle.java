@@ -1,4 +1,4 @@
-package com.andiandy;
+package com.andiandy.m101j.week1;
 
 import java.io.IOException;
 import java.io.StringWriter;
