@@ -1,8 +1,20 @@
-*.class
+# Eclipse
+.classpath
+.project
+.settings/
 
-# Package Files #
-*.jar
-*.war
-*.ear
-.idea*
+# Intellij
+.idea/
 *.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+
+#Project-specific
+.metadata/
+course files/
