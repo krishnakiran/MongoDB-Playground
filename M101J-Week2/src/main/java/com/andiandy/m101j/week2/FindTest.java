@@ -24,10 +24,7 @@ public class FindTest {
 										   .and( "y" ).greaterThan( 10 ).lessThan( 70 );
 
 
-		DBObject query
-				= new BasicDBObject( "x", 0 )
-				.append( "y", new BasicDBObject( "$gt", 10 ).append( "$lt", 90 ) );
-
+		
 
 		System.out.println( "Find one:" );
 		DBObject one = collection.findOne();

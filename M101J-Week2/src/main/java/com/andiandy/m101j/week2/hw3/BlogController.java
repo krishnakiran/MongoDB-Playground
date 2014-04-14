@@ -4,16 +4,20 @@ import com.mongodb.DB;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+
 import freemarker.template.Configuration;
 import freemarker.template.SimpleHash;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+
 import org.apache.commons.lang3.StringEscapeUtils;
+
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
 import javax.servlet.http.Cookie;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -94,8 +98,7 @@ public class BlogController {
 			@Override
 			public void doHandle(Request request, Response response,
 					Writer writer) throws IOException, TemplateException {
-				String username = sessionDAO
-						.findUserNameBySessionId(getSessionCookie(request));
+				
 
 				// this is where we would normally load up the blog data
 				// but this week, we just display a placeholder.
@@ -313,6 +316,7 @@ public class BlogController {
 	}
 
 	// tags the tags string and put it into an array
+	@SuppressWarnings("unused")
 	private ArrayList<String> extractTags(String tags) {
 
 		// probably more efficent ways to do this.

@@ -12,10 +12,8 @@ public class Homework1 {
 
 
 		DBCursor cusor = collection.find();
-		int i = 0;
 		try{
 			while( cusor.hasNext()){
-				i++;
 				BasicDBObject student = (BasicDBObject) cusor.next();
 				BasicDBList scores = (BasicDBList) student.get( "scores" );
 				double lowest_score = 100.0;
