@@ -64,7 +64,7 @@ public class BlogPostDAO {
         return posts;
     }
 
-    public String addPost(String title, String body, List tags, String username) {
+    public String addPost(String title, String body, List<String> tags, String username) {
 
         System.out.println("inserting blog entry " + title + " " + body);
 
@@ -77,7 +77,7 @@ public class BlogPostDAO {
         post.append("body", body);
         post.append("permalink", permalink);
         post.append("tags", tags);
-        post.append("comments", new java.util.ArrayList());
+        post.append("comments", new java.util.ArrayList<String>());
         post.append("date", new java.util.Date());
 
         try {
@@ -90,14 +90,16 @@ public class BlogPostDAO {
 
         return permalink;
     }
-
+    
     public void addPostComment(final String name, final String email, final String body, final String permalink) {
         BasicDBObject comment = new BasicDBObject("author", name).append("body", body);
         if (email != null && !email.equals("")) {
             comment.append("email", email);
         }
 
-        WriteResult result = postsCollection.update(new BasicDBObject("permalink", permalink),
+        
+        @SuppressWarnings("unused")
+		WriteResult result = postsCollection.update(new BasicDBObject("permalink", permalink),
                 new BasicDBObject("$push", new BasicDBObject("comments", comment)), false, false);
     }
 
