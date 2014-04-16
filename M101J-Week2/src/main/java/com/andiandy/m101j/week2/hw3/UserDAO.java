@@ -21,13 +21,14 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.MongoException;
-import sun.misc.BASE64Encoder;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;
+
+import org.apache.commons.codec.binary.Base64;
 
 public class UserDAO {
     private final DBCollection usersCollection;
@@ -96,9 +97,9 @@ public class UserDAO {
             String saltedAndHashed = password + "," + salt;
             MessageDigest digest = MessageDigest.getInstance("MD5");
             digest.update(saltedAndHashed.getBytes());
-            BASE64Encoder encoder = new BASE64Encoder();
+            
             byte hashedBytes[] = (new String(digest.digest(), "UTF-8")).getBytes();
-            return encoder.encode(hashedBytes) + "," + salt;
+            return new String( Base64.encodeBase64(hashedBytes)) + "," + salt;
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("MD5 is not available", e);
         } catch (UnsupportedEncodingException e) {

@@ -21,9 +21,9 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
-import sun.misc.BASE64Encoder;
-
 import java.security.SecureRandom;
+
+import org.apache.commons.codec.binary.Base64;
 
 public class SessionDAO {
     private final DBCollection sessionsCollection;
@@ -48,14 +48,7 @@ public class SessionDAO {
     // starts a new session in the sessions table
     public String startSession(String username) {
 
-        // get 32 byte random number. that's a lot of bits.
-        SecureRandom generator = new SecureRandom();
-        byte randomBytes[] = new byte[32];
-        generator.nextBytes(randomBytes);
-
-        BASE64Encoder encoder = new BASE64Encoder();
-
-        String sessionID = encoder.encode(randomBytes);
+        String sessionID = generateSessionID();
 
         // build the BSON object
         BasicDBObject session = new BasicDBObject("username", username);
@@ -66,6 +59,20 @@ public class SessionDAO {
 
         return session.getString("_id");
     }
+
+
+	public String generateSessionID() {
+		// get 32 byte random number. that's a lot of bits.
+        SecureRandom generator = new SecureRandom();
+        byte randomBytes[] = new byte[32];
+        generator.nextBytes(randomBytes);
+
+        
+        byte[] idBytes = Base64.encodeBase64(randomBytes);
+        String sessionID = new String(idBytes);
+        
+		return sessionID;
+	}
 
     // ends the session by deleting it from the sesisons table
     public void endSession(String sessionID) {
