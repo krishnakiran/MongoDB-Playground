@@ -17,6 +17,7 @@
 		<module>../M101J-Week3</module>
 		<module>../M101J-Week4</module>
 		<module>../M101J-Week5</module>
+		<module>../M101J-Week6</module>
 	</modules>
 	<build>
 		<plugins>
@@ -38,6 +39,11 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>            
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
